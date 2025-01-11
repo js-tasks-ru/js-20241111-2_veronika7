@@ -1,5 +1,6 @@
 export default class NotificationMessage {
   static lastShownNotification;
+  timerId;
 
   constructor(messageText = '', props = {}) {
     const {
@@ -45,7 +46,7 @@ export default class NotificationMessage {
   }
 
   hide() {
-    setTimeout(() => this.remove(), this.duration);
+    this.timerId = setTimeout(() => this.remove(), this.duration);
   }
 
   remove() {
@@ -54,5 +55,6 @@ export default class NotificationMessage {
 
   destroy() {
     this.remove();
+    clearTimeout(this.timerId);
   }
 }
